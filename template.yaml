@@ -122,29 +122,29 @@ Resources:
         SSEEnabled: true
 
   # API declaration
-  TodoApi:
-    Type: AWS::Serverless::Api
-    MethodSettings: 
-        DataTraceEnabled: true
-        MetricsEnabled: true
-        HttpMethod: '*'
-        ResourcePath: !Sub '${VersionParam}/*'
-        LoggingLevel: INFO
-    AccessLogSetting:
-      DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
-      Format: '$context.identity.sourceIp $context.authorizer.claims.sub [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
-    Properties:
-      Name: TodoApi
-      StageName: !Ref StageNameParam
-      TracingEnabled: true
-      Cors:
-        AllowOrigin: "'*'"
-        AllowMethods: "'OPTIONS,HEAD,GET,PUT,POST,DELETE'"
-        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-      Auth:
-        Authorizers:
-          CognitoAuthorizer:
-            UserPoolArn: !GetAtt "TodoUserPool.Arn"
+  # TodoApi:
+  #   Type: AWS::Serverless::Api
+  #   MethodSettings: 
+  #       DataTraceEnabled: true
+  #       MetricsEnabled: true
+  #       HttpMethod: '*'
+  #       ResourcePath: !Sub '${VersionParam}/*'
+  #       LoggingLevel: INFO
+  #   AccessLogSetting:
+  #     DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
+  #     Format: '$context.identity.sourceIp $context.authorizer.claims.sub [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
+  #   Properties:
+  #     Name: TodoApi
+  #     StageName: !Ref StageNameParam
+  #     TracingEnabled: true
+  #     Cors:
+  #       AllowOrigin: "'*'"
+  #       AllowMethods: "'OPTIONS,HEAD,GET,PUT,POST,DELETE'"
+  #       AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+  #     Auth:
+  #       Authorizers:
+  #         CognitoAuthorizer:
+  #           UserPoolArn: !GetAtt "TodoUserPool.Arn"
 
   # API Functions
   GetTodoFunction:
@@ -390,17 +390,17 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  TodoFunctionApi:
-    Description: API Gateway endpoint URL for Prod stage
-    Value: !Sub "https://${TodoApi}.execute-api.${AWS::Region}.amazonaws.com/{StageNameParam}"
-  CognitoID:
-    Description: The Cognito UserPool ID
-    Value: !Ref TodoUserPool
-  CognitoClientID:
-    Description: The Cognito UserPool Client ID
-    Value: !Ref TodoUserPoolTokenClient
-  CognitoDomainName:
-    Description: The Cognito Hosted UI Domain Name
-    Value: !Join ['', [!Ref CognitoDomainName, '-', !Ref AWS::StackName, '.auth.', !Ref AWS::Region, '.amazoncognito.com']]
+  # TodoFunctionApi:
+  #   Description: API Gateway endpoint URL for Prod stage
+  #   Value: !Sub "https://${TodoApi}.execute-api.${AWS::Region}.amazonaws.com/{StageNameParam}"
+  # CognitoID:
+  #   Description: The Cognito UserPool ID
+  #   Value: !Ref TodoUserPool
+  # CognitoClientID:
+  #   Description: The Cognito UserPool Client ID
+  #   Value: !Ref TodoUserPoolTokenClient
+  # CognitoDomainName:
+  #   Description: The Cognito Hosted UI Domain Name
+  #   Value: !Join ['', [!Ref CognitoDomainName, '-', !Ref AWS::StackName, '.auth.', !Ref AWS::Region, '.amazoncognito.com']]
   # AmplifyURL:
   #   Value: !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]
