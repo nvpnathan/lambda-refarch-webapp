@@ -170,7 +170,7 @@ Resources:
           Properties:
             Path: /item/{id}
             Method: get
-            RestApiId: !Ref TodoApi
+            RestApiId: td9gl0hst0
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -196,7 +196,7 @@ Resources:
           Properties:
             Path: /item
             Method: get
-            RestApiId: !Ref TodoApi
+            RestApiId: td9gl0hst0
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -222,7 +222,7 @@ Resources:
             Properties:
               Path: /item/{id}/done
               Method: post
-              RestApiId: !Ref TodoApi
+              RestApiId: td9gl0hst0
               Auth:
                 Authorizer: CognitoAuthorizer
 
@@ -248,7 +248,7 @@ Resources:
           Properties:
             Path: /item
             Method: POST
-            RestApiId: !Ref TodoApi
+            RestApiId: td9gl0hst0
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -272,7 +272,7 @@ Resources:
             Properties:
               Path: /item/{id}
               Method: PUT
-              RestApiId: !Ref TodoApi
+              RestApiId: td9gl0hst0
               Auth:
                 Authorizer: CognitoAuthorizer
 
@@ -298,7 +298,7 @@ Resources:
           Properties:
             Path: /item/{id}
             Method: DELETE
-            RestApiId: !Ref TodoApi
+            RestApiId: td9gl0hst0
             Auth:
               Authorizer: CognitoAuthorizer
 
