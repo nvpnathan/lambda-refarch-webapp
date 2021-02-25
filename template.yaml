@@ -1,7 +1,20 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: "ABIII todo serverless web application"
-  
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: task-app
+    Description: task app
+    Author: nvpnathan
+    SpdxLicenseId: Apache-2.0
+    LicenseUrl: LICENSE
+    ReadmeUrl: README.md
+    Labels: ['dev']
+    HomePageUrl: https://github.com/nvpnathan/lambda-refarch-webapp
+    SemanticVersion: 0.0.1
+    SourceCodeUrl: https://github.com/nvpnathan/lambda-refarch-webapp
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
