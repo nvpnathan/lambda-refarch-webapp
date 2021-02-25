@@ -64,42 +64,42 @@ Parameters:
 Resources:
 
 #cognito declaration
-  # TodoUserPool:
-  #   Type: AWS::Cognito::UserPool
-  #   Properties:
-  #     AdminCreateUserConfig:
-  #       AllowAdminCreateUserOnly: false
-  #     UserPoolName: TodoUsers
-  #     UsernameAttributes:
-  #     - email
-  #     AutoVerifiedAttributes:
-  #     - email
-  #     Policies:
-  #       PasswordPolicy:
-  #         MinimumLength: 6
-  #         RequireLowercase: true
-  #         RequireNumbers: false
-  #         RequireSymbols: false
-  #         RequireUppercase: true
+  TodoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      UserPoolName: TodoUsers
+      UsernameAttributes:
+      - email
+      AutoVerifiedAttributes:
+      - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 6
+          RequireLowercase: true
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: true
   
-  # TodoUserPoolTokenClient:
-  #   Type: AWS::Cognito::UserPoolClient
-  #   Properties:
-  #     UserPoolId: !Ref TodoUserPool
-  #     GenerateSecret: false
-  #     AllowedOAuthFlowsUserPoolClient: true
-  #     AllowedOAuthFlows: ['code', 'implicit']
-  #     CallbackURLs: ['http://localhost:3000', 'http://localhost:8080' ,'https://localhost', !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]]
-  #     SupportedIdentityProviders: ['COGNITO']
-  #     AllowedOAuthScopes: ['phone', 'email', 'openid']
-  #     ExplicitAuthFlows:
-  #     - USER_PASSWORD_AUTH
+  TodoUserPoolTokenClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref TodoUserPool
+      GenerateSecret: false
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows: ['code', 'implicit']
+      CallbackURLs: ['http://localhost:3000', 'http://localhost:8080' ,'https://localhost', !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]]
+      SupportedIdentityProviders: ['COGNITO']
+      AllowedOAuthScopes: ['phone', 'email', 'openid']
+      ExplicitAuthFlows:
+      - USER_PASSWORD_AUTH
   
-  # TodoDomain:
-  #   Type: AWS::Cognito::UserPoolDomain
-  #   Properties: 
-  #     Domain: !Join ['-', [!Ref CognitoDomainName, !Ref AWS::StackName]]
-  #     UserPoolId: !Ref TodoUserPool
+  TodoDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties: 
+      Domain: !Join ['-', [!Ref CognitoDomainName, !Ref AWS::StackName]]
+      UserPoolId: !Ref TodoUserPool
 
   TodoTable:
     Type: AWS::DynamoDB::Table
@@ -122,29 +122,29 @@ Resources:
         SSEEnabled: true
 
   # API declaration
-  # TodoApi:
-  #   Type: AWS::Serverless::Api
-  #   MethodSettings: 
-  #       DataTraceEnabled: true
-  #       MetricsEnabled: true
-  #       HttpMethod: '*'
-  #       ResourcePath: !Sub '${VersionParam}/*'
-  #       LoggingLevel: INFO
-  #   AccessLogSetting:
-  #     DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
-  #     Format: '$context.identity.sourceIp $context.authorizer.claims.sub [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
-  #   Properties:
-  #     Name: TodoApi
-  #     StageName: !Ref StageNameParam
-  #     TracingEnabled: true
-  #     Cors:
-  #       AllowOrigin: "'*'"
-  #       AllowMethods: "'OPTIONS,HEAD,GET,PUT,POST,DELETE'"
-  #       AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-  #     Auth:
-  #       Authorizers:
-  #         CognitoAuthorizer:
-  #           UserPoolArn: !GetAtt "TodoUserPool.Arn"
+  TodoApi:
+    Type: AWS::Serverless::Api
+    MethodSettings: 
+        DataTraceEnabled: true
+        MetricsEnabled: true
+        HttpMethod: '*'
+        ResourcePath: !Sub '${VersionParam}/*'
+        LoggingLevel: INFO
+    AccessLogSetting:
+      DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
+      Format: '$context.identity.sourceIp $context.authorizer.claims.sub [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
+    Properties:
+      Name: TodoApi
+      StageName: !Ref StageNameParam
+      TracingEnabled: true
+      Cors:
+        AllowOrigin: "'*'"
+        AllowMethods: "'OPTIONS,HEAD,GET,PUT,POST,DELETE'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      Auth:
+        Authorizers:
+          CognitoAuthorizer:
+            UserPoolArn: !GetAtt "TodoUserPool.Arn"
 
   # API Functions
   GetTodoFunction:
@@ -170,7 +170,7 @@ Resources:
           Properties:
             Path: /item/{id}
             Method: get
-            RestApiId: td9gl0hst0
+            RestApiId: !Ref TodoApi
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -196,7 +196,7 @@ Resources:
           Properties:
             Path: /item
             Method: get
-            RestApiId: td9gl0hst0
+            RestApiId: !Ref TodoApi
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -222,7 +222,7 @@ Resources:
             Properties:
               Path: /item/{id}/done
               Method: post
-              RestApiId: td9gl0hst0
+              RestApiId: !Ref TodoApi
               Auth:
                 Authorizer: CognitoAuthorizer
 
@@ -248,7 +248,7 @@ Resources:
           Properties:
             Path: /item
             Method: POST
-            RestApiId: td9gl0hst0
+            RestApiId: !Ref TodoApi
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -272,7 +272,7 @@ Resources:
             Properties:
               Path: /item/{id}
               Method: PUT
-              RestApiId: td9gl0hst0
+              RestApiId: !Ref TodoApi
               Auth:
                 Authorizer: CognitoAuthorizer
 
@@ -298,7 +298,7 @@ Resources:
           Properties:
             Path: /item/{id}
             Method: DELETE
-            RestApiId: td9gl0hst0
+            RestApiId: !Ref TodoApi
             Auth:
               Authorizer: CognitoAuthorizer
 
@@ -348,59 +348,60 @@ Resources:
                 Action: "amplify:*"
                 Resource: "*"
 
-  # AmplifyApp:
-  #   Type: "AWS::Amplify::App"
-  #   Properties:
-  #     Name: TodoApp
-  #     Repository: !Ref Repository
-  #     Description: Todo example app
-  #     OauthToken: !Ref OauthToken
-  #     BuildSpec: |-
-  #       version: 0.1
-  #       frontend:
-  #         phases:
-  #           build:
-  #             commands:
-  #               - cd www/src
-  #               - npm install
-  #               - npm run build
-  #         artifacts:
-  #           baseDirectory: www/build/
-  #           files:
-  #             - '**/*'
-  #     Tags:
-  #       - Key: Name
-  #         Value: Todo
-  #     IAMServiceRole: !GetAtt AmplifyRole.Arn
+  AmplifyApp:
+    Type: "AWS::Amplify::App"
+    Properties:
+      Name: TodoApp
+      Repository: !Ref Repository
+      Description: Todo example app
+      OauthToken: !Ref OauthToken
+      BuildSpec: |-
+        version: 0.1
+        frontend:
+          phases:
+            build:
+              commands:
+                - cd www/src
+                - npm install
+                - npm run build
+          artifacts:
+            baseDirectory: www/build/
+            files:
+              - '**/*'
+      Tags:
+        - Key: Name
+          Value: Todo
+      IAMServiceRole: !GetAtt AmplifyRole.Arn
 
-  # AmplifyBranch:
-  #   Type: AWS::Amplify::Branch
-  #   Properties:
-  #     BranchName: !Ref Branch
-  #     AppId: !GetAtt AmplifyApp.AppId
-  #     Description: Amplify Console Branch
-  #     EnableAutoBuild: true
-  #     Tags:
-  #       - Key: Name
-  #         Value: todo-amplify-console
-  #       - Key: Branch
-  #         Value: !Ref Branch
+  AmplifyBranch:
+    Type: AWS::Amplify::Branch
+    Properties:
+      BranchName: !Ref Branch
+      AppId: !GetAtt AmplifyApp.AppId
+      Description: Amplify Console Branch
+      EnableAutoBuild: true
+      Tags:
+        - Key: Name
+          Value: todo-amplify-console
+        - Key: Branch
+          Value: !Ref Branch
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  # TodoFunctionApi:
-  #   Description: API Gateway endpoint URL for Prod stage
-  #   Value: !Sub "https://${TodoApi}.execute-api.${AWS::Region}.amazonaws.com/{StageNameParam}"
-  # CognitoID:
-  #   Description: The Cognito UserPool ID
-  #   Value: !Ref TodoUserPool
-  # CognitoClientID:
-  #   Description: The Cognito UserPool Client ID
-  #   Value: !Ref TodoUserPoolTokenClient
-  # CognitoDomainName:
-  #   Description: The Cognito Hosted UI Domain Name
-  #   Value: !Join ['', [!Ref CognitoDomainName, '-', !Ref AWS::StackName, '.auth.', !Ref AWS::Region, '.amazoncognito.com']]
-  # AmplifyURL:
-  #   Value: !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]
+  TodoFunctionApi:
+    Description: API Gateway endpoint URL for Prod stage
+    Value: !Sub "https://${TodoApi}.execute-api.${AWS::Region}.amazonaws.com/{StageNameParam}"
+  CognitoID:
+    Description: The Cognito UserPool ID
+    Value: !Ref TodoUserPool
+  CognitoClientID:
+    Description: The Cognito UserPool Client ID
+    Value: !Ref TodoUserPoolTokenClient
+  CognitoDomainName:
+    Description: The Cognito Hosted UI Domain Name
+    Value: !Join ['', [!Ref CognitoDomainName, '-', !Ref AWS::StackName, '.auth.', !Ref AWS::Region, '.amazoncognito.com']]
+  AmplifyURL:
+    Value: !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]
+
