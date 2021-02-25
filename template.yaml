@@ -64,42 +64,42 @@ Parameters:
 Resources:
 
 #cognito declaration
-  TodoUserPool:
-    Type: AWS::Cognito::UserPool
-    Properties:
-      AdminCreateUserConfig:
-        AllowAdminCreateUserOnly: false
-      UserPoolName: TodoUsers
-      UsernameAttributes:
-      - email
-      AutoVerifiedAttributes:
-      - email
-      Policies:
-        PasswordPolicy:
-          MinimumLength: 6
-          RequireLowercase: true
-          RequireNumbers: false
-          RequireSymbols: false
-          RequireUppercase: true
+  # TodoUserPool:
+  #   Type: AWS::Cognito::UserPool
+  #   Properties:
+  #     AdminCreateUserConfig:
+  #       AllowAdminCreateUserOnly: false
+  #     UserPoolName: TodoUsers
+  #     UsernameAttributes:
+  #     - email
+  #     AutoVerifiedAttributes:
+  #     - email
+  #     Policies:
+  #       PasswordPolicy:
+  #         MinimumLength: 6
+  #         RequireLowercase: true
+  #         RequireNumbers: false
+  #         RequireSymbols: false
+  #         RequireUppercase: true
   
-  TodoUserPoolTokenClient:
-    Type: AWS::Cognito::UserPoolClient
-    Properties:
-      UserPoolId: !Ref TodoUserPool
-      GenerateSecret: false
-      AllowedOAuthFlowsUserPoolClient: true
-      AllowedOAuthFlows: ['code', 'implicit']
-      CallbackURLs: ['http://localhost:3000', 'http://localhost:8080' ,'https://localhost', !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]]
-      SupportedIdentityProviders: ['COGNITO']
-      AllowedOAuthScopes: ['phone', 'email', 'openid']
-      ExplicitAuthFlows:
-      - USER_PASSWORD_AUTH
+  # TodoUserPoolTokenClient:
+  #   Type: AWS::Cognito::UserPoolClient
+  #   Properties:
+  #     UserPoolId: !Ref TodoUserPool
+  #     GenerateSecret: false
+  #     AllowedOAuthFlowsUserPoolClient: true
+  #     AllowedOAuthFlows: ['code', 'implicit']
+  #     CallbackURLs: ['http://localhost:3000', 'http://localhost:8080' ,'https://localhost', !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]]
+  #     SupportedIdentityProviders: ['COGNITO']
+  #     AllowedOAuthScopes: ['phone', 'email', 'openid']
+  #     ExplicitAuthFlows:
+  #     - USER_PASSWORD_AUTH
   
-  TodoDomain:
-    Type: AWS::Cognito::UserPoolDomain
-    Properties: 
-      Domain: !Join ['-', [!Ref CognitoDomainName, !Ref AWS::StackName]]
-      UserPoolId: !Ref TodoUserPool
+  # TodoDomain:
+  #   Type: AWS::Cognito::UserPoolDomain
+  #   Properties: 
+  #     Domain: !Join ['-', [!Ref CognitoDomainName, !Ref AWS::StackName]]
+  #     UserPoolId: !Ref TodoUserPool
 
   TodoTable:
     Type: AWS::DynamoDB::Table
@@ -402,5 +402,5 @@ Outputs:
   CognitoDomainName:
     Description: The Cognito Hosted UI Domain Name
     Value: !Join ['', [!Ref CognitoDomainName, '-', !Ref AWS::StackName, '.auth.', !Ref AWS::Region, '.amazoncognito.com']]
-  AmplifyURL:
-    Value: !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]
+  # AmplifyURL:
+  #   Value: !Join ['', ['https://', !GetAtt AmplifyBranch.BranchName, '.', !GetAtt AmplifyApp.DefaultDomain]]
