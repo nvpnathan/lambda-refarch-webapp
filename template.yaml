@@ -5,7 +5,7 @@ Description: "ABIII todo serverless web application"
 Metadata:
   AWS::ServerlessRepo::Application:
     Name: task-app
-    Description: task app
+    Description: task app test
     Author: nvpnathan
     SpdxLicenseId: Apache-2.0
     LicenseUrl: LICENSE
