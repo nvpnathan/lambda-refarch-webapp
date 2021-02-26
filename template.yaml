@@ -55,7 +55,7 @@ Parameters:
   Branch:
     Type: String
     Description: GitHub Branch
-    Default: master
+    Default: dev
   OauthToken:
     Type: String
     Description: GitHub Repository URL
