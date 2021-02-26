@@ -7,8 +7,6 @@ const AWS = AWSXRay.captureAWS(require('aws-sdk'))
 const { metricScope, Unit } = require("aws-embedded-metrics")
 const DDB = new AWS.DynamoDB({ apiVersion: "2012-10-08" })
 
-AWS.config.paramValidation = false;
-
 // environment variables
 const { TABLE_NAME, ENDPOINT_OVERRIDE, REGION } = process.env
 const options = { region: REGION }
