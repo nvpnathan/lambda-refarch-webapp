@@ -33,7 +33,7 @@ Parameters:
     Default: prod
   CognitoDomainName:
     Type: String
-    Default: mytodoappdemo
+    Default: mytaskappdemo
 
   # For Amplify Console frontend hosting
   Repository:
@@ -51,12 +51,12 @@ Parameters:
 Resources:
 
 #cognito declaration
-  TodoUserPool:
+  TaskUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
       AdminCreateUserConfig:
         AllowAdminCreateUserOnly: false
-      UserPoolName: TodoUsers
+      UserPoolName: TaskUsers
       UsernameAttributes:
       - email
       AutoVerifiedAttributes:
@@ -72,7 +72,7 @@ Resources:
   TodoUserPoolTokenClient:
     Type: AWS::Cognito::UserPoolClient
     Properties:
-      UserPoolId: !Ref TodoUserPool
+      UserPoolId: !Ref TaskUserPool
       GenerateSecret: false
       AllowedOAuthFlowsUserPoolClient: true
       AllowedOAuthFlows: ['code', 'implicit']
@@ -86,7 +86,7 @@ Resources:
     Type: AWS::Cognito::UserPoolDomain
     Properties: 
       Domain: !Join ['-', [!Ref CognitoDomainName, !Ref AWS::StackName]]
-      UserPoolId: !Ref TodoUserPool
+      UserPoolId: !Ref TaskUserPool
 
   TodoTable:
     Type: AWS::DynamoDB::Table
@@ -121,7 +121,7 @@ Resources:
       DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
       Format: '$context.identity.sourceIp $context.authorizer.claims.sub [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
     Properties:
-      Name: TodoApi
+      Name: TaskApi
       StageName: !Ref StageNameParam
       TracingEnabled: true
       Cors:
@@ -131,7 +131,7 @@ Resources:
       Auth:
         Authorizers:
           CognitoAuthorizer:
-            UserPoolArn: !GetAtt "TodoUserPool.Arn"
+            UserPoolArn: !GetAtt "TaskUserPool.Arn"
 
   # API Functions
   GetTodoFunction:
@@ -382,7 +382,7 @@ Outputs:
     Value: !Sub "https://${TodoApi}.execute-api.${AWS::Region}.amazonaws.com/{StageNameParam}"
   CognitoID:
     Description: The Cognito UserPool ID
-    Value: !Ref TodoUserPool
+    Value: !Ref TaskUserPool
   CognitoClientID:
     Description: The Cognito UserPool Client ID
     Value: !Ref TodoUserPoolTokenClient
