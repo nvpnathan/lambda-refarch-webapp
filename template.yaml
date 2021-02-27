@@ -30,7 +30,7 @@ Parameters:
     Default: v1
   StageNameParam:
     Type: String
-    Default: Stage
+    Default: prod
   CognitoDomainName:
     Type: String
     Default: mytaskappdemo
