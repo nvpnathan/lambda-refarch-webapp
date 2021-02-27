@@ -2,10 +2,10 @@
 // aws cloudformation describe-stacks --stack-name <YOUR STACK NAME> --query "Stacks[0].Outputs[]"
 
 const config = {
-  "aws_user_pools_web_client_id": "1t9s5d9al223nppgh9vvt35fkr",     // CognitoClientID
-  "api_base_url": "https://drith2dvz9.execute-api.us-west-1.amazonaws.com/prod",              // TodoFunctionApi
+  "aws_user_pools_web_client_id": "6gq449d4urn3i67m6tfl9gc2on",     // CognitoClientID
+  "api_base_url": "ttps://wetqx5rgvb.execute-api.us-west-1.amazonaws.com/prod",              // TodoFunctionApi
   "cognito_hosted_domain": "mytaskappdemo-taskapp.auth.us-west-1.amazoncognito.com",        // CognitoDomainName
-  "redirect_url": "https://master.d1vrk7hr431g6t.amplifyapp.com"                  // AmplifyURL
+  "redirect_url": "hhttps://master.d378wctf090ono.amplifyapp.com"                  // AmplifyURL
 };
 
 export default config;
