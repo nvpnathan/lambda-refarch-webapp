@@ -4,6 +4,7 @@ phases:
     commands:
       - sam build --use-container
       - sam package --template-file template.yaml --s3-bucket serverlessrepo-aws-sam-codepipeline-cd-artifacts-bzyyzr0in3d6 --output-template-file packaged-template.yaml
+
 artifacts:
   files:
     - packaged-template.yaml
