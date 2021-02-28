@@ -11,8 +11,12 @@ phases:
       # Installing project dependencies
       - cd todo-src
       - npm install
-      - cd getAllTodo
-      - npm install
+      - cd addTodo && npm install
+      - cd ../completeTodo && npm install
+      - cd ../deleteTodo && npm install
+      - cd ../getAllTodo && npm install
+      - cd ../getTodo && npm install
+      - cd ../updateTodo && npm install
       - cd ..
   
   pre_build:
@@ -25,7 +29,7 @@ phases:
       # Use Build phase to build your artifacts (compile, etc.)
       - cd ..
       - ls -lrta
-      - sam build
+      #- sam build
 
   post_build:
     commands:
