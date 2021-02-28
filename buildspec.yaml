@@ -11,6 +11,9 @@ phases:
       # Installing project dependencies
       - cd todo-src
       - npm install
+      - cd getAllTodo
+      - npm install
+      - cd ..
   
   pre_build:
     commands:
