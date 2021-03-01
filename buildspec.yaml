@@ -14,7 +14,7 @@ phases:
       - cd addTodo && npm install
       - cd ../completeTodo && npm install
       - cd ../deleteTodo && npm install
-      #- cd ../getAllTodo && npm install
+      - cd ../getAllTodo && npm install
       - cd ../getTodo && npm install
       - cd ../updateTodo && npm install
       - cd ..
