@@ -153,7 +153,7 @@ function App() {
               <img src={logo} alt="Logo" />
               <h1>Octank Task Manager</h1>
               <p>Welcome to Octank Task Manager!</p>
-              <p>Please signup/login and try out our new Task Manager service.</p>
+              <p>Please signup/login and try out our Task Manager service.</p>
 
             </Col>
             <Col md="6">
