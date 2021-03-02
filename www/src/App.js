@@ -150,11 +150,11 @@ function App() {
         <Jumbotron>
           <Row>
             <Col md="6" className="logo">
+              <img src={logo} alt="Logo" />
               <h1>Octank Task Manager</h1>
               <p>Welcome to Octank Task Manager!</p>
               <p>Please signup/login and try out our new Task Manager service.</p>
 
-              <img src={logo} alt="Logo" />
             </Col>
             <Col md="6">
               {idToken.length > 0 ?
