@@ -4,7 +4,7 @@ import axios from 'axios';
 import ToDo from './ToDo'
 
 import './App.css';
-import logo from './aws.png';
+import logo from './octank.png';
 
 import config from './config';
 
@@ -151,8 +151,8 @@ function App() {
           <Row>
             <Col md="6" className="logo">
               <h1>Octank Task Manager</h1>
-              <p>This is a demo that showcases AWS serverless.</p>
-              <p>The application is built using the SAM CLI toolchain, and uses AWS Lambda, Amazon DynamoDB, and Amazon API Gateway for API services and Amazon Cognito for identity.</p>
+              <p>Welcome to Octank Task Manager!.</p>
+              <p>Please signup/login and try out our new Task Manager service.</p>
 
               <img src={logo} alt="Logo" />
             </Col>
